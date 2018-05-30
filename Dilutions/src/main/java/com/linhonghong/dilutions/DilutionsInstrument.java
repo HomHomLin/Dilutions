@@ -75,7 +75,7 @@ public class DilutionsInstrument {
 
     DilutionsInstrument(Context context, List<String> pathName){
         mContext = context;
-        mPathName = pathName;
+//        mPathName = pathName;
     }
 
     void removeDilutionsPathInterceptor(String path, DilutionsPathInterceptor interceptor){
@@ -139,11 +139,11 @@ public class DilutionsInstrument {
         initCheckMap();
         initAppMap();
         //解析path
-        if(mPathName != null) {
-            for (String pathname : mPathName) {
-                parserData(pathname, PARSER_TYPE_JUMP);
-            }
-        }
+//        if(mPathName != null) {
+//            for (String pathname : mPathName) {
+//                parserData(pathname, PARSER_TYPE_JUMP);
+//            }
+//        }
     }
 
     public Map<String, ArrayList<String>> getJumpPathMap(){
@@ -249,41 +249,41 @@ public class DilutionsInstrument {
      */
     @Deprecated
     private void parserData(String name, int type) throws Exception{
-        InputStream pathis = getContext().getAssets().open(name);
-        Properties properties = new Properties();
-        properties.load(pathis);
-        Enumeration<Object> keys = properties.keys();
-        while (keys.hasMoreElements()) {
-            String key = (String) keys.nextElement();//协议
-            String value = properties.getProperty(key).trim();
-            if(DilutionsUtil.isEqual(SCHEME_IN, key)){
-                //配置头
-                parseScheme(appMap, value);
-            }else if(DilutionsUtil.isEqual(SCHEME_OUT, key)){
-                //配置头
-//                parseScheme(appOutMap, value);
-            }else {
-                parseQuery(key, value, jumpPathMap);
-//                switch (type) {
-//                    case PARSER_TYPE_JUMP:
-//                        //解析跳转
-//                        parseQuery(key, value, jumpPathMap);
-//                        break;
-//                    case PARSER_TYPE_METHOD:
-//                        //解析方法
-//                        if (value.contains("#")) {
-//                            //解析方法协议
-//                            parseQuery(key, value, methodPathMap);
-//                        } else {
-//                            //兼容模式
-//                            value = value.contains(COMPATIBLE_METHOD_PACKAGE) ? value : COMPATIBLE_METHOD_PACKAGE + value;
-//                            value = value + "#" + COMPATIBLE_METHOD_NAME;
-//                            parseQuery(key, value, methodPathMap);
-//                        }
-//                        break;
-//                }
-            }
-        }
+//        InputStream pathis = getContext().getAssets().open(name);
+//        Properties properties = new Properties();
+//        properties.load(pathis);
+//        Enumeration<Object> keys = properties.keys();
+//        while (keys.hasMoreElements()) {
+//            String key = (String) keys.nextElement();//协议
+//            String value = properties.getProperty(key).trim();
+//            if(DilutionsUtil.isEqual(SCHEME_IN, key)){
+//                //配置头
+//                parseScheme(appMap, value);
+//            }else if(DilutionsUtil.isEqual(SCHEME_OUT, key)){
+//                //配置头
+////                parseScheme(appOutMap, value);
+//            }else {
+//                parseQuery(key, value, jumpPathMap);
+////                switch (type) {
+////                    case PARSER_TYPE_JUMP:
+////                        //解析跳转
+////                        parseQuery(key, value, jumpPathMap);
+////                        break;
+////                    case PARSER_TYPE_METHOD:
+////                        //解析方法
+////                        if (value.contains("#")) {
+////                            //解析方法协议
+////                            parseQuery(key, value, methodPathMap);
+////                        } else {
+////                            //兼容模式
+////                            value = value.contains(COMPATIBLE_METHOD_PACKAGE) ? value : COMPATIBLE_METHOD_PACKAGE + value;
+////                            value = value + "#" + COMPATIBLE_METHOD_NAME;
+////                            parseQuery(key, value, methodPathMap);
+////                        }
+////                        break;
+////                }
+//            }
+//        }
     }
 
     /**

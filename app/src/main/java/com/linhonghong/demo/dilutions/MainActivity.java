@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         Dilutions.init(this);
         //Activity注册
         Dilutions.create().register(this);
+
         //直接使用st参数
 //        Log.i("test",st);
         setContentView(R.layout.activity_main);
@@ -107,25 +108,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-    }
-
-    @SuppressWarnings("unchecked")
-    public <T> T formatProtocolService(final Class<T> protocol) {
-        //只能代理接口
-        return (T) Proxy.newProxyInstance(protocol.getClassLoader(), new Class<?>[] { protocol },
-                new InvocationHandler() {
-
-                    @Override public Object invoke(Object proxy, java.lang.reflect.Method method, Object... args)
-                            throws Throwable {
-
-                        if (method.getDeclaringClass() == Object.class) {
-                            return method.invoke(this, args);
-                        }
-
-
-//                        return Void.class;
-                        return Void.class;
-                    }
-                });
     }
 }

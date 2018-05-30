@@ -424,7 +424,7 @@ Dilutions.init(Context);
 
 ## gradle
 
-当前最新版本1.0.6
+当前最新版本1.0.8
 
 
 在主工程最外层配置gradle ：classpath 'linhonghong.lib:dilutions-compiler:1.0.6'
@@ -437,7 +437,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:2.2.0'
         //添加这个
-        classpath 'linhonghong.lib:dilutions-compiler:1.0.6'
+        classpath 'linhonghong.lib:dilutions-compiler:1.0.8'
     }
 }
 ```
@@ -445,7 +445,13 @@ buildscript {
 在需要dilutions的地方添加：
 
 ```groovy
-	compile 'linhonghong.lib:dilutions:1.0.6'
+	compile 'linhonghong.lib:dilutions:1.0.8'
+```
+
+Dilutions依赖阿里巴巴fastjson的json解析，因此需要在你的工程中依赖fastjson
+
+```groovy
+	compile 'com.alibaba:fastjson:1.1.68.android'
 ```
 
 主工程apply插件

@@ -3,7 +3,7 @@ apply plugin: 'maven-publish'
 
 group = GROUP_ID
 version = DEPLOY_VERSION
-project.archivesBaseName = POM_LIB_ARTIFACT_ID
+project.archivesBaseName = POM_ARTIFACT_ID
 
 task sourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
@@ -50,7 +50,7 @@ javadoc {
         author true
         version true
         links "http://docs.oracle.com/javase/7/docs/api"
-        title POM_LIB_ARTIFACT_ID
+        title POM_ARTIFACT_ID
     }
 }
 
@@ -64,7 +64,7 @@ publishing {
             artifact javadocJar
             artifact sourcesJar
             groupId GROUP_ID
-            artifactId POM_LIB_ARTIFACT_ID
+            artifactId POM_ARTIFACT_ID
             version DEPLOY_VERSION
             pom{
                 packaging 'aar'
@@ -97,7 +97,7 @@ bintray {
 
     pkg {
         repo = 'maven'
-        name = POM_LIB_ARTIFACT_ID
+        name = POM_ARTIFACT_ID
         licenses = ['Apache-2.0']
         vcsUrl = PROJ_VCSURL
         websiteUrl = PROJ_WEBSITEURL
