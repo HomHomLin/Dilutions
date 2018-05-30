@@ -1,0 +1,121 @@
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'maven-publish'
+
+group = GROUP_ID
+version = DEPLOY_VERSION
+project.archivesBaseName = POM_ARTIFACT_ID
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+//task javadoc(type: Javadoc) {
+//    source = sourceSets.main.java.srcDirs
+//    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+//}
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+def pomConfig = {
+    licenses {
+        license {
+            name "The Apache Software License, Version 2.0"
+            url "http://www.apache.org/licenses/LICENSE-2.0.txt"
+            distribution "repo"
+        }
+    }
+    developers {
+        developer {
+            id DEVELOPER_ID
+            name DEVELOPER_NAME
+            email DEVELOPER_EMAIL
+        }
+    }
+
+    scm {
+        url PROJ_WEBSITEURL
+    }
+}
+
+javadoc {
+    options{
+        encoding "UTF-8"
+        charSet 'UTF-8'
+        author true
+        version true
+        links "http://docs.oracle.com/javase/7/docs/api"
+        title POM_ARTIFACT_ID
+    }
+}
+
+//afterEvaluate {
+//    publishing.publications.mavenJava.artifact(packageReleaseJar)
+//}
+//afterEvaluate {
+//    publishing.publications.aar.artifact(bundleRelease)
+//    publishing.publications.jar.artifact(packageReleaseJar)
+//}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact javadocJar
+            artifact sourcesJar
+            groupId GROUP_ID
+            artifactId POM_ARTIFACT_ID
+            version DEPLOY_VERSION
+            pom{
+                packaging 'jar'
+            }
+            pom.withXml {
+                def root = asNode()
+                root.children().last() + pomConfig
+            }
+        }
+    }
+}
+
+Properties properties = new Properties()
+InputStream inputStream = project.rootProject.file('local.properties').newDataInputStream() ;
+properties.load( inputStream )
+
+def BINTRAY_U = properties.getProperty( 'BINTRAY_USER' )
+def BINTRAY_KEY = properties.getProperty( 'BINTRAY_KEY' ) ;
+
+bintray {
+
+    user = BINTRAY_U
+    key = BINTRAY_KEY
+
+    configurations = ['archives']
+    publications = ['mavenJava']
+
+    dryRun = false
+    publish = true
+
+    pkg {
+        repo = 'maven'
+        name = POM_ARTIFACT_ID
+        licenses = ['Apache-2.0']
+        vcsUrl = PROJ_VCSURL
+        websiteUrl = PROJ_WEBSITEURL
+        issueTrackerUrl = PROJ_ISSUETRACKERURL
+        publicDownloadNumbers = true
+        version {
+            name = DEPLOY_VERSION
+            desc = PROJ_DESCRIPTION
+            vcsTag = DEPLOY_VERSION
+
+            gpg {
+                sign = true
+            }
+        }
+    }
+}
+

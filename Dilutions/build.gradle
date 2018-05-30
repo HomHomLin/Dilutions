@@ -1,0 +1,46 @@
+apply plugin: 'com.android.library'
+
+
+android {
+//    android.enforceUniquePackageName = false
+    compileSdkVersion 24
+    buildToolsVersion '26.0.2'
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 24
+        versionCode 1
+        versionName "1.0"
+
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    lintOptions{
+        abortOnError false
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    provided 'com.android.support:appcompat-v7:24.2.1'
+    compile 'com.alibaba:fastjson:1.1.55.android'
+}
+
+apply from: 'android.gradle'
+//apply plugin: 'com.novoda.bintray-release'
+//
+//publish {
+//    artifactId = POM_LIB_ARTIFACT_ID
+//    userOrg = DEVELOPER_ID
+//    groupId = GROUP_ID
+//    uploadName = POM_ARTIFACT_ID
+//    publishVersion = DEPLOY_VERSION
+//    desc = PROJ_DESCRIPTION
+//    website = PROJ_WEBSITEURL
+//    licences = ['Apache-2.0']
+//}

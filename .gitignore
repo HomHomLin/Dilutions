@@ -1,0 +1,12 @@
+/captures
+/app/app.iml
+/app/build
+/.idea
+/build
+/Dilutions/build
+/Dilutions/Dilutions.iml
+/dilutionsPlugin/build
+/dilutionsPlugin/dilutionsPlugin.iml
+DilutionsProject.iml
+local.properties
+/.gradle
