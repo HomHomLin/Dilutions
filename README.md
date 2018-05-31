@@ -462,6 +462,13 @@ apply plugin: 'dilutions'
 
 Dilutions在Gradle2.x以及以上版本测试通过。
 
+## 混淆
+
+```xml
+-keep public class com.linhonghong.dilutions.inject.support.DilutionsInjectUIMetas
+-keep public class com.linhonghong.dilutions.inject.support.DilutionsInjectMeta
+```
+
 ## Developed By
 
  * Linhonghong - <linhh90@163.com>
